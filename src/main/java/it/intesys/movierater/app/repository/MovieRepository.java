@@ -17,6 +17,7 @@ public class MovieRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    //prima task test, creo una funzione che mi restituisca una lista di movies, attraverso una query al database
     public List<Movie> getMovies(){
         List<Movie> movies = jdbcTemplate.query("SELECT * FROM movie",
                 BeanPropertyRowMapper.newInstance(Movie.class));
@@ -24,3 +25,4 @@ public class MovieRepository {
         return movies;
     }
 }
+

@@ -26,6 +26,7 @@ public class MovieService {
                 new Movie(2L, "Titanic", "James Cameron"));
     }
 
+    // Richiamo la repository dove ho creato la funzione per restituire la lista di movies e attraverso una funzione ritorno il numero totale di film nel database
     public List<Movie> getMovies(){
         return movieRepository.getMovies();
     }
