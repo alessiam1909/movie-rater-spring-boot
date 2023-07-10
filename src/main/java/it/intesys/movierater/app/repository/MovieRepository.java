@@ -1,6 +1,7 @@
 package it.intesys.movierater.app.repository;
 
 import it.intesys.movierater.app.Movie;
+import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;

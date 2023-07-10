@@ -1,9 +1,12 @@
 package it.intesys.movierater.app;
 
 import org.javatuples.Pair;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 public class MovieController {
@@ -15,11 +18,11 @@ public class MovieController {
     }
 
     @GetMapping("/")
-    public String index(Model model) {
-        Pair<Movie, Movie> randomMovies = movieService.get2RandomMovies();
-        model.addAttribute("movie1", randomMovies.getValue0());
-        model.addAttribute("movie2", randomMovies.getValue1());
-        return "index";
+    public ResponseEntity<List<Movie>> get2RandomMovies()
+
+    {
+        List<Movie> randomMovies = movieService.get2RandomMovies();
+        return ResponseEntity.ok(randomMovies);
     }
 
     @ModelAttribute(name="movieCount")

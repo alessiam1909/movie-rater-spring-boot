@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class MovieService {
@@ -20,10 +22,29 @@ public class MovieService {
         this.movieRepository = movieRepository;
     }
 
-    public Pair<Movie, Movie> get2RandomMovies() {
-        return Pair.with(
-                new Movie(1L,"Pulp Fiction", "Quentin Tarantino"),
-                new Movie(2L, "Titanic", "James Cameron"));
+    public List<Movie> get2RandomMovies() {
+        List<Movie> allMovies = movieRepository.getMovies();
+
+        // Genera due numeri casuali tra 0 e la dimensione della lista dei film
+        Random random = new Random();
+        int index1 = random.nextInt(allMovies.size());
+        int index2 = random.nextInt(allMovies.size());
+
+        // cerco un numero nuovo se i due numeri sono uguali finchè non ne trovo due diversi
+        while (index2 == index1) {
+            index2 = random.nextInt(allMovies.size());
+        }
+
+        // Recupero i due film random
+        Movie movie1 = allMovies.get(index1);
+        Movie movie2 = allMovies.get(index2);
+
+        // Crea una lista che li contenga
+        List<Movie> randomMovies = new ArrayList<>();
+        randomMovies.add(movie1);
+        randomMovies.add(movie2);
+
+        return randomMovies;
     }
 
     // Richiamo la repository dove ho creato la funzione per restituire la lista di movies e attraverso una funzione ritorno il numero totale di film nel database
