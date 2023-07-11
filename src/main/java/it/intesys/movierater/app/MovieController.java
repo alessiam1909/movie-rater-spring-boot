@@ -19,6 +19,8 @@ public class  MovieController {
         this.movieService = movieService;
     }
 
+
+    //fixed Pair instead of list to show movies on screen
     @GetMapping("/")
     public  String index(Model model){
         Pair<MovieEntity, MovieEntity> randomMovies = movieService.get2RandomMovies();
