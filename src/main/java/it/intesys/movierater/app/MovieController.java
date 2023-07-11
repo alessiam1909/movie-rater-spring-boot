@@ -1,5 +1,7 @@
 package it.intesys.movierater.app;
 
+import it.intesys.movierater.app.dto.Movie;
+import it.intesys.movierater.app.entity.MovieEntity;
 import org.javatuples.Pair;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -9,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-public class MovieController {
+public class  MovieController {
 
     private final MovieService movieService;
 
@@ -18,10 +20,10 @@ public class MovieController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<Movie>> get2RandomMovies()
+    public ResponseEntity<List<MovieEntity>> get2RandomMovies()
 
     {
-        List<Movie> randomMovies = movieService.get2RandomMovies();
+        List<MovieEntity> randomMovies = movieService.get2RandomMovies();
         return ResponseEntity.ok(randomMovies);
     }
 
@@ -32,7 +34,7 @@ public class MovieController {
 
     @PostMapping("/vote")
     public String submitVote(@ModelAttribute Movie movie) {
-        movieService.vote(movie.getId());
+        movieService.vote(movie.getId().intValue());
         return "redirect:/";
     }
 
