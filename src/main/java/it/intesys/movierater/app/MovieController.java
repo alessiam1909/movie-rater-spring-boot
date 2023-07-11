@@ -20,16 +20,21 @@ public class  MovieController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<MovieEntity>> get2RandomMovies()
-
-    {
-        List<MovieEntity> randomMovies = movieService.get2RandomMovies();
-        return ResponseEntity.ok(randomMovies);
+    public  String index(Model model){
+        Pair<MovieEntity, MovieEntity> randomMovies = movieService.get2RandomMovies();
+        model.addAttribute("movie1", randomMovies.getValue0());
+        model.addAttribute("movie2", randomMovies.getValue1());
+        return "index";
     }
 
     @ModelAttribute(name="movieCount")
     public Long movieCount() {
         return movieService.getMovieCount();
+    }
+
+    @ModelAttribute(name="voteCount")
+    public Long voteCount() {
+        return movieService.getVotes();
     }
 
     @PostMapping("/vote")

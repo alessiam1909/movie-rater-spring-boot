@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.util.List;
 
 
@@ -37,6 +38,12 @@ public class MovieRepository {
     //creo una funzione che aggiorni i voti dei film
     public void updateVotes(MovieEntity movie){
         em.merge(movie);
+    }
+
+
+    public Long getTotalVotes() {
+        Query query = em.createQuery("SELECT SUM(movie.total_votes) FROM movie");
+        return (Long) query.getSingleResult();
     }
 
 }

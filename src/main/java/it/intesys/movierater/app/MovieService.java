@@ -30,29 +30,25 @@ public class MovieService {
 
     }
 
-    public List<MovieEntity> get2RandomMovies() {
-        List<MovieEntity> allMovies = movieRepository.getMovies();
+    public Pair<MovieEntity, MovieEntity> get2RandomMovies() {
+        Integer movieCount = getMovieCount().intValue();
 
         // Genera due numeri casuali tra 0 e la dimensione della lista dei film
         Random random = new Random();
-        int index1 = random.nextInt(allMovies.size());
-        int index2 = random.nextInt(allMovies.size());
+        Integer index1 = random.nextInt(movieCount);
+        Integer  index2 = random.nextInt(movieCount);
 
         // cerco un numero nuovo se i due numeri sono uguali finchè non ne trovo due diversi
         while (index2 == index1) {
-            index2 = random.nextInt(allMovies.size());
+            index2 = random.nextInt(movieCount);
         }
 
         // Recupero i due film random
-        MovieEntity movie1 = allMovies.get(index1);
-        MovieEntity movie2 = allMovies.get(index2);
+        MovieEntity movie1 = movieRepository.getMovieById(index1);
+        MovieEntity movie2 = movieRepository.getMovieById(index2);
 
-        // Crea una lista che li contenga
-        List<MovieEntity> randomMovies = new ArrayList<>();
-        randomMovies.add(movie1);
-        randomMovies.add(movie2);
 
-        return randomMovies;
+        return Pair.with(movie1, movie2);
     }
 
     // Richiamo la repository dove ho creato la funzione per restituire la lista di movies e attraverso una funzione ritorno il numero totale di film nel database
@@ -74,5 +70,15 @@ public class MovieService {
         int newVote = getMovieVoteById((movieId)) + 1;
         movie.setTotal_votes(newVote);
         movieRepository.updateVotes(movie);
+    }
+
+
+    public Long getVotes(){
+        List<MovieEntity> movies = movieRepository.getMovies();
+        Integer votes = 0;
+        for (MovieEntity movie: movies) {
+            votes = votes + movie.getTotal_votes();
+        }
+        return (long)votes;
     }
 }
