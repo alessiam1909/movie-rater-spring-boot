@@ -1,12 +1,12 @@
 CREATE TABLE Actor (
-                       ID INTEGER NOT NULL PRIMARY KEY,
+                       ID INTEGER NOT NULL PRIMARY KEY auto_increment,
                        NAME VARCHAR(255)
 );
 
 CREATE TABLE Actor_movie (
-                             ID INTEGER NOT NULL PRIMARY KEY,
-                             actor_id INT,
-                             movie_id INT,
-                             FOREIGN KEY (actor_id) REFERENCES Actor(ID),
-                             FOREIGN KEY (movie_id) REFERENCES Movie(ID)
+                             ID INTEGER NOT NULL PRIMARY KEY auto_increment,
+                             ACTORID INT,
+                             MOVIEID INT,
+                             FOREIGN KEY (ACTORID) REFERENCES Actor(ID),
+                             FOREIGN KEY (MOVIEID) REFERENCES Movie(ID)
 );

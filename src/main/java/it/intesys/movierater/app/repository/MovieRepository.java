@@ -41,9 +41,9 @@ public class MovieRepository {
     }
 
 
-    public Long getTotalVotes() {
+    public int getTotalVotes() {
         Query query = em.createQuery("SELECT SUM(movie.total_votes) FROM movie");
-        return (Long) query.getSingleResult();
+        return (int) query.getSingleResult();
     }
 
 }

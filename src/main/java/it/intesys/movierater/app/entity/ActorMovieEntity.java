@@ -3,7 +3,7 @@ package it.intesys.movierater.app.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "actor_movie")
+@Table(name = "Actor_movie")
 public class ActorMovieEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,11 +11,11 @@ public class ActorMovieEntity {
     private Integer id;
 
     @OneToOne
-    @JoinColumn(name = "movie_id")
+    @JoinColumn(name = "MOVIEID")
     private MovieEntity movie;
 
     @OneToOne
-    @JoinColumn(name = "actor_id")
+    @JoinColumn(name = "ACTORID")
     private ActorEntity actor;
 
     public Integer getId() {

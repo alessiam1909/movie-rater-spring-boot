@@ -1,4 +1,4 @@
-package it.intesys.movierater.app;
+package it.intesys.movierater.app.service;
 
 import it.intesys.movierater.app.dto.Movie;
 import it.intesys.movierater.app.entity.MovieEntity;
@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -70,6 +69,11 @@ public class MovieService {
         int newVote = getMovieVoteById((movieId)) + 1;
         movie.setTotal_votes(newVote);
         movieRepository.updateVotes(movie);
+    }
+
+   //recupero un singolo film per id
+    public Movie getMovieById(Integer movieId){
+        return movieMapper.toDTO(movieRepository.getMovieById(movieId));
     }
 
 

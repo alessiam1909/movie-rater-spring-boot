@@ -1,14 +1,12 @@
-package it.intesys.movierater.app;
+package it.intesys.movierater.app.controller;
 
 import it.intesys.movierater.app.dto.Movie;
 import it.intesys.movierater.app.entity.MovieEntity;
+import it.intesys.movierater.app.service.MovieService;
 import org.javatuples.Pair;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 public class  MovieController {
@@ -46,7 +44,9 @@ public class  MovieController {
     }
 
     @GetMapping("/movie/{movieId}")
-    public String getMovieDetails(@PathVariable("movieId") Long movieId) {
+    public String getMovieDetails(@PathVariable("movieId") Integer movieId, Model model) {
+        model.addAttribute("movie", movieService.getMovieById((movieId)));
+        model.addAttribute("actors", movieService.get2RandomMovies());
         return "movie";
     }
 }
