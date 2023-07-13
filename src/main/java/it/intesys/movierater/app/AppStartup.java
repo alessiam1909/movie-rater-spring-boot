@@ -53,10 +53,10 @@ public class AppStartup {
         HashMap<String, List<Integer>> attori= new HashMap<>();
         //per ogni film divido la stringa degli attori
         for (Movie movie: movies) {
-            String[] attoriMovie = movie.getActors().split(", ");
+            String[] attoriFilm = movie.getActors().split(", ");
 
             //Per ogni attore vedo se è presente o no nel database altrimenti aggiungo solo l'id del film
-            for (String attore: attoriMovie) {
+            for (String attore: attoriFilm) {
                 if(attori.containsKey(attore)){
                     List<Integer> film = attori.get(attore);
                     film.add(movie.getId().intValue());
@@ -77,21 +77,23 @@ public class AppStartup {
             HashMap<String, List<Integer>> attori = getAttoriwithFilm(movieService.getMovies());
             for (String attore: attori.keySet()){
                 log.info(attore);
-                ActorEntity newAttore = prepareActor(attore);
+                ActorEntity newAttore = addActor(attore);
                 actorService.postActorEntity(newAttore);
                 for(Integer id: attori.get(attore)){
                     ActorMovieEntity actorMovie = new ActorMovieEntity();
                     actorMovie.setMovie(movieMapper.toEntity(movieService.getMovieById(id)));
-                    actorMovie.setActor(actorMapper.toEntity(newAttore));
-                    em.persist(actorMovie);
+                    actorMovie.setActor(newAttore);
+                    actorMovieService.insertMovieActor(actorMovie);
                 }
             }
 
+        }else{
+            log.info("piena");
         }
     }
 
 
-    public ActorEntity prepareActor(String name){
+    public ActorEntity addActor(String name){
         ActorEntity newAttore = new ActorEntity();
         newAttore.setName(name);
         return newAttore;
